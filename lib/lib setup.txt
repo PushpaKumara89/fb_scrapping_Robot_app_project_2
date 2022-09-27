@@ -1,0 +1,10 @@
+chromedriver.exe
+selenium-server-4.3.0.jar
+https://www.selenium.dev/downloads/
+
+////////////////////////////////////
+commons-io-2.11.0.jar
+https://commons.apache.org/proper/commons-io/
+commons-lang3-3.12.0.jar
+https://commons.apache.org/proper/commons-lang/download_lang.cgi
+mysql-connector-java-8.0.25.jar
