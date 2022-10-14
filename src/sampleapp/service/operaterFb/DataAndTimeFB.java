@@ -10,13 +10,16 @@ public class DataAndTimeFB {
     public static String getDateFormat(String date){
         try {
             String[] dateCondition ={"January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November" , "December"};
-
+            String[] d = date.split(" ");
+            System.out.println(d[1].equals("d") && d.length==2);
             for (int i = 0; i <dateCondition.length ; i++) {
-                String[] d = date.split(" ");
                 LocalDate now = LocalDate.now();
                 Date dat = new Date();
                 //
-                if(date.contains("Yesterday")){
+                if (d[1].equals("d") && d.length==2){
+                    LocalDateTime temDate = LocalDateTime.now().minusDays(Integer.parseInt(d[0]));
+                    return DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss").format(temDate);
+                }else if(date.contains("Yesterday")){
                     String[] time = d[2].split(":");
                     String yesterday = (now.minusDays(1)).format(DateTimeFormatter.ISO_DATE);
                     String[] yd = yesterday.split("-");

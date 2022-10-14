@@ -16,6 +16,7 @@ import sampleapp.dto.PostDTO;
 
 import java.io.File;
 import java.io.IOException;
+import java.lang.reflect.Array;
 import java.sql.*;
 import java.time.Duration;
 import java.util.*;
@@ -52,26 +53,15 @@ public class FaceBookPagePostAutomate {
             js.executeScript("window.scrollBy(0, 900);");
         }
         System.out.println(driver.getCurrentUrl());
-
-        By x_see_more_type1 = By.xpath("//div[@class='m8h3af8h l7ghb35v kjdc1dyq kmwttqpk gh25dzvf n3t5jt4f']/div/div[@class='qi72231t nu7423ey n3hqoq4p r86q59rh b3qcqh3k fq87ekyn bdao358l fsf7x5fv rse6dlih s5oniofx m8h3af8h l7ghb35v kjdc1dyq kmwttqpk srn514ro oxkhqvkx rl78xhln nch0832m cr00lzj9 rn8ck1ys s3jn8y49 icdlwmnq cxfqmxzd pbevjfx6 innypi6y']");
-        By x_see_more_type2 = By.xpath("//a[@class='see_more_link']");
-        By x_see_more_type3 = By.xpath("//div[@class='qi72231t nu7423ey n3hqoq4p r86q59rh b3qcqh3k fq87ekyn bdao358l fsf7x5fv rse6dlih s5oniofx m8h3af8h l7ghb35v kjdc1dyq kmwttqpk srn514ro oxkhqvkx rl78xhln nch0832m cr00lzj9 rn8ck1ys s3jn8y49 icdlwmnq cxfqmxzd pbevjfx6 innypi6y']");
+        By see_more = By.xpath("//*[text()='See more']");
 
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
-        List<WebElement> type1_see_more_elements = driver.findElements(x_see_more_type1);
-        List<WebElement> type2_see_more_elements = driver.findElements(x_see_more_type2);
-        List<WebElement> type3_see_more_elements = driver.findElements(x_see_more_type3);
-        if (!type1_see_more_elements.isEmpty()){
-            for (int i = 0; i < type1_see_more_elements.size(); i++) {
-                js.executeScript("arguments[0].click();", type1_see_more_elements.get(i));
-            }
-        } else if (!type2_see_more_elements.isEmpty()){
-            for (int i = 0; i < type2_see_more_elements.size(); i++) {
-                js.executeScript("arguments[0].click();", type2_see_more_elements.get(i));
-            }
-        }else if (!type3_see_more_elements.isEmpty()){
-            for (int i = 0; i < type3_see_more_elements.size(); i++) {
-                js.executeScript("arguments[0].click();", type3_see_more_elements.get(i));
+
+        List<WebElement> see_more_elements = driver.findElements(see_more);
+
+        if (!see_more_elements.isEmpty()){
+            for (int i = 0; i < see_more_elements.size(); i++) {
+                js.executeScript("arguments[0].click();", see_more_elements.get(i));
             }
         }
 

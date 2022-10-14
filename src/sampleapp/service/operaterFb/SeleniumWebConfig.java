@@ -13,7 +13,7 @@ public class SeleniumWebConfig {
 
 
     private SeleniumWebConfig() {
-        System.setProperty("webdriver.chrome.driver", "D:\\pushpakumara\\seleniumSreenshotApp\\fb_scrapping_screen_shot\\SeleniumPro\\lib\\chromedriver.exe");
+        System.setProperty("webdriver.chrome.driver", "D:\\pushpakumara\\Wixis\\backup\\fb_scrapping_web\\fb_scrapping_screen_shot\\SeleniumPro\\lib\\chromedriver.exe");
         ChromeOptions options = new ChromeOptions();//Chrome browser hide ..................
         options.addArguments("--headless");
         options.addArguments("disable-notifications");
