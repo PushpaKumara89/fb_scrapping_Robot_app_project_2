@@ -1,30 +1,21 @@
 package sampleapp.service.operaterFb;
 
 import org.openqa.selenium.By;
-import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import sampleapp.db.SqliteDBConnection;
 import sampleapp.dto.PostDTO;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
 public class FB {
-    //-------------------------------declared type1 elements------------------------------------------------------
-    //private static final By x_post_type1 = By.xpath("//div[@class='j83agx80 cbu4d94t']");
-    private static final By x_post_type1 = By.xpath("//div[@class='x1ja2u2z xh8yej3 x1n2onr6 x1yztbdb']");
-    private static final By x_massages_type1 = By.xpath("//div[@data-ad-preview='message']");
-    private static final By x_imgUrl_type1 = By.xpath("//div[@class='rq0escxv l9j0dhe7 du4w35lb hybvsw6c io0zqebd m5lcvass fbipl8qg nwvqtn77 k4urcfbm ni8dbmo4 stjgntxs sbcfpzgs']/div/div/div/div/div[@class='l9j0dhe7']");
-    private static final By x_timeDate_type1 = By.xpath("//span[@class='d2edcug0 hpfvmrgz qv66sw1b c1et5uql lr9zc1uh a8c37x1j fe6kdd0r mau55g9w c8b282yb keod5gw0 nxhoafnm aigsh9s9 d9wwppkn mdeji52x e9vueds3 j5wam9gi b1v8xokw m9osqain hzawbc8m']/span/span/span/a/span");
-
-
-    //-------------------------------declared type2 elements------------------------------------------------------
-    private static final By x_post_type2 = By.xpath("//div[@class='_5pcr userContentWrapper']");
-    private static final By x_massages_type2 = By.xpath("//div[@class='_5pbx userContent _3576']");
-    private static final By x_imgUrl_type2 = By.xpath("//div[@class='mtm']/div");
-    private static final By x_timeDate_type2 = By.xpath("//div[@class='_5pcp _5lel _2jyu _232_']/span[@class='z_c3pyo1brp']");
 
     //-------------------------------execute selected page type---------------------------------------------------
     private static final By x_login_popup = By.xpath("//div[@class='oajrlxb2 qu0x051f esr5mh6w e9989ue4 r7d6kgcz nhd2j8a9 p7hjln8o kvgmc6g5 cxmmr5t8 oygrvhab hcukyx3x i1ao9s8h esuyzwwr f1sip0of abiwlrkh p8dawk7l lzcic4wl bp9cbjyn s45kfl79 emlxlaya bkmhp75w spb7xbtv rt8b4zig n8ej3o3l agehan2d sk4xxmp2 rq0escxv j83agx80 taijpn5t jb3vyjys rz4wbd8a qt6c0cv9 a8nywdso l9j0dhe7 tv7at329 thwo4zme tdjehn4e']");
@@ -33,18 +24,18 @@ public class FB {
     public static ArrayList<PostDTO> getWebElements(WebDriver driver) {
 
         WebElementsFB elementsT1 = new WebElementsFB(
-                driver.getTitle(),
+               /* driver.getTitle(),
                 driver.findElements(x_post_type1),
                 driver.findElements(x_massages_type1),
                 driver.findElements(x_imgUrl_type1),
-                driver.findElements(x_timeDate_type1)
+                driver.findElements(x_timeDate_type1)*/
                 );
         WebElementsFB elementsT2 = new WebElementsFB(
-                driver.getTitle(),
+               /* driver.getTitle(),
                 driver.findElements(x_post_type2),
                 driver.findElements(x_massages_type2),
                 driver.findElements(x_imgUrl_type2),
-                driver.findElements(x_timeDate_type2)
+                driver.findElements(x_timeDate_type2)*/
         );
         ArrayList<PostDTO> postDTOS =null;
         if (elementsT1.is_verified()){
@@ -59,7 +50,26 @@ public class FB {
     }
 
     public static List<WebElement> getPostWebElements(WebDriver driver) {
-        List<WebElement> elements1 = driver.findElements(x_post_type1);
+        List<WebElement> ele =null;
+        try {
+            Connection connection = SqliteDBConnection.getInstance().getConnection();
+            PreparedStatement pst = connection.prepareStatement("SELECT * FROM xpath");
+            ResultSet rst = pst.executeQuery();
+            while (rst.next()){
+
+                ele = driver.findElements(By.xpath(rst.getString(2)));
+                if (!ele.isEmpty()){
+                    System.out.println("xpath Id: "+rst.getInt(1));
+                    return ele;
+                }
+            }
+        } catch (SQLException | ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+        return ele;
+
+
+        /*List<WebElement> elements1 = driver.findElements(x_post_type1);
         List<WebElement> elements2 = driver.findElements(x_post_type2);
         List<WebElement> posts=null;
         if (!elements1.isEmpty()){
@@ -69,7 +79,7 @@ public class FB {
             posts=elements2;
             System.out.println("type2");
         }
-        return posts;
+        return posts;*/
     }
 
     //---------------------------------get Cra

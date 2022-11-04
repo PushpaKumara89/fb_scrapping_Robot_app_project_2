@@ -2,29 +2,19 @@ package sampleapp.dao;
 
 
 
+import org.openqa.selenium.WebDriver;
 import sampleapp.bo.BoFactory;
 import sampleapp.bo.custom.Fb_urlBo;
 import sampleapp.dto.PageDTO;
+import sampleapp.service.operaterFb.SeleniumWebConfig;
 
 import java.sql.SQLException;
 
 class CurdUtilTest {
 
     public static void main(String[] args) throws SQLException, ClassNotFoundException, InterruptedException {
-        Fb_urlBo impl = (Fb_urlBo) BoFactory.getInstance().getBo(BoFactory.BoType.FB_URLS);
-        String[] ar ={
-                "https://www.facebook.com/Sampathbankplc",
-                "https://www.facebook.com/IPSE.lk",
-                "https://www.facebook.com/flysrilankan",
-                "https://www.facebook.com/aswadduma"};
-        for (int i = 0; i < ar.length; i++) {
-            System.out.println(impl.save_URL(new PageDTO(ar[i],"","jpg","Gamman",false,"12.451")));
-        }
-        //System.out.println(impl.save_URL(new PageDTO("https://www.facebook.com/flysrilankan/","","jpg","Gamman",false,"12.451")));
-        //System.out.println(impl.get_URL("https://www.facebook.com/HNBPLC"));
-       /* System.out.println(impl.update_URL(new PageDTO(1,"https://www.facebook.com/HNBPLC","HNB11111111","jpg","Gamman",true,"12.451")));
-        System.out.println(impl.get_URL("https://www.facebook.com/HNBPLC"));*/
-        System.gc();
+        WebDriver driver = SeleniumWebConfig.getInstance().driver();
+        driver.get("https://www.facebook.com/Sampathbankplc");
     }
 }
 /*

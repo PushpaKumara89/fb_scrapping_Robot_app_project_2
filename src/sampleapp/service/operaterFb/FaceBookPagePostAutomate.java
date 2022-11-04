@@ -55,7 +55,7 @@ public class FaceBookPagePostAutomate {
         System.out.println(driver.getCurrentUrl());
         By see_more = By.xpath("//*[text()='See more']");
 
-        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
+        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10)).getScriptTimeout();
 
         List<WebElement> see_more_elements = driver.findElements(see_more);
 
@@ -78,11 +78,17 @@ public class FaceBookPagePostAutomate {
                 .executeScript("return document.readyState")
                 .equals("complete"));//waiting 30s for page rendering...................................................
 
-
         Thread t = new Thread(run);t.start();
 
+        Thread.sleep(1000);
         List<WebElement> postWebElements = FB.getPostWebElements(driver);
-        System.out.println(postWebElements.size());
+
+        try{
+            System.out.println("count of post : "+postWebElements.size());
+        }catch (NullPointerException n){
+            System.out.println("elements Not Found");
+            return false;
+        }
         int elementsSize = 0;
         elementsSize = Math.min(postWebElements.size(), 5);
         ArrayList<String> img_url = new ArrayList<>();
@@ -98,7 +104,6 @@ public class FaceBookPagePostAutomate {
         } catch (ClassNotFoundException | SQLException e) {
             e.printStackTrace();
         }
-        System.out.println("ok");
         Set<String> win = driver.getWindowHandles();
         ArrayList<String> list = new ArrayList<>(win);
         Thread.sleep(3000);

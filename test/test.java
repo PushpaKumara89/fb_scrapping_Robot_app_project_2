@@ -1,21 +1,17 @@
-import org.openqa.selenium.remote.http.HttpMethod;
-import org.openqa.selenium.remote.http.HttpRequest;
-import sampleapp.bo.custom.impl.Fb_urlBo_IMPL;
+
 import sampleapp.dto.PageDTO;
-import sampleapp.service.operaterFb.DataAndTimeFB;
 import sampleapp.service.operaterFb.FaceBookPagePostAutomate;
 
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStreamReader;
-import java.net.HttpURLConnection;
-import java.net.URL;
-import java.sql.SQLException;
-import java.util.*;
+import java.sql.*;
 
 public class test {
-    public static void main(String[] args) throws InterruptedException, SQLException, ClassNotFoundException, IOException {
-
+    public static void main(String[] args) throws InterruptedException, SQLException, ClassNotFoundException {
+        try {
+            FaceBookPagePostAutomate.newPostSave(new PageDTO("https://www.facebook.com/aswadduma","xx","gf", "rr", true,"5757"));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }
 /*
